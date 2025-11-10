@@ -1,0 +1,32 @@
+-- Database: blog_db
+CREATE DATABASE IF NOT EXISTS blog_db;
+USE blog_db;
+
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  is_admin TINYINT(1) DEFAULT 0
+);
+
+-- Posts table
+CREATE TABLE IF NOT EXISTS posts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  content TEXT NOT NULL,
+  image_url VARCHAR(255),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Messages table
+CREATE TABLE IF NOT EXISTS messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  message TEXT NOT NULL
+);
+
